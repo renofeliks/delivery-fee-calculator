@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling // CronJob
+@EnableScheduling // For CronJob
 public class DeliveryFeeCalculatorApplication {
 
 	public static void main(String[] args) {
