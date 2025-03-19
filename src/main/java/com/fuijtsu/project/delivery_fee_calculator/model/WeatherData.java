@@ -54,12 +54,12 @@ public class WeatherData {
         this.wmoCode = wmoCode;
     }
 
-    public double getAirTemperature() {
+    public double getAirTemp() {
         return airTemp;
     }
 
-    public void setAirTemperature(double airTemperature) {
-        this.airTemp = airTemperature;
+    public void setAirTemp(double airTemp) {
+        this.airTemp = airTemp;
     }
 
     public double getWindSpeed() {
