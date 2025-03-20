@@ -1,7 +1,16 @@
 package com.fuijtsu.project.delivery_fee_calculator.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class DeliveryFeeRequest {
+
+    @NotBlank(message = "City can't be empty")
+    @Pattern(regexp = "Tallinn|Tartu|Pärnu", message = "Invalid city name")
     private String city;
+
+    @NotBlank(message = "Vehicle type must not be empty")
+    @Pattern(regexp = "Car|Scooter|Bike", message = "Invalid vehicle type")
     private String vehicleType;
 
     public DeliveryFeeRequest() {}

@@ -2,6 +2,7 @@ package com.fuijtsu.project.delivery_fee_calculator.controller;
 
 import com.fuijtsu.project.delivery_fee_calculator.dto.DeliveryFeeRequest;
 import com.fuijtsu.project.delivery_fee_calculator.service.DeliveryFeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class DeliveryFeeController {
     }
 
     @PostMapping("/calculate")
-    public ResponseEntity<Double> calculateFee(@RequestBody DeliveryFeeRequest request) {
+    public ResponseEntity<Double> calculateFee(@Valid @RequestBody DeliveryFeeRequest request) {
         double fee = deliveryFeeService.calcDeliveryFee(request);
         return ResponseEntity.ok(fee);
     }
