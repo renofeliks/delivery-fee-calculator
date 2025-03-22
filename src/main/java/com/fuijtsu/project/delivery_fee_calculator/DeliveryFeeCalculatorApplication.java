@@ -4,6 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * Main class for the Spring Boot application.
+ * This class bootstraps the application and enables scheduling support.
+ */
 @SpringBootApplication
 @EnableScheduling // For CronJob
 public class DeliveryFeeCalculatorApplication {

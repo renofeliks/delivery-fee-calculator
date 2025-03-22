@@ -7,9 +7,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository interface for accessing WeatherData entities from the database.
+ */
 @Repository
 public interface WeatherDataRepository extends JpaRepository<WeatherData, Long> {
 
-    // Query to find the latest weather data for a city by station name ordered by timestamp desc.
+    /**
+     * Finds the most recent weather data for a give weather station.
+     * Sorts all matching records by timestamp in descending order and returns the first one.
+     * Uses derived query, so I don't need to write SQL myself.
+     * @param stationName - Name of the weather station.
+     * @return - Optional containing the latest weather data or empty if not found.
+     */
     Optional<WeatherData> findTopByStationNameOrderByTimestampDesc(String stationName);
 }

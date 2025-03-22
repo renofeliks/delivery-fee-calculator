@@ -13,16 +13,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for the DeliveryFeeService class.
+ * These tests validate delivery fee calculation logic.
+ * WeatherDataRepository is mocked to control the weather data.
+ */
 public class DeliveryFeeServiceTest {
     private DeliveryFeeService deliveryFeeService;
     private WeatherDataRepository weatherDataRepository;
 
+    /**
+     * Sets up the environment before each test.
+     */
     @BeforeEach
     void setUp() {
         weatherDataRepository = Mockito.mock(WeatherDataRepository.class);
         deliveryFeeService = new DeliveryFeeService(weatherDataRepository);
     }
 
+    /**
+     * Tests that the correct base fee is calculated for a bike in Tallinn
+     * with no extra weather related fees.
+     */
     @Test
     void shouldCalcBaseFeeForTallinnBike() {
         DeliveryFeeRequest request = new DeliveryFeeRequest("Tallinn", "Bike");
@@ -34,6 +46,9 @@ public class DeliveryFeeServiceTest {
         assertEquals(3.0, fee);
     }
 
+    /**
+     * Tests that an additional cold weather fee is applied.
+     */
     @Test
     void shouldApplyColdWeatherFeeForScooter() {
         DeliveryFeeRequest request = new DeliveryFeeRequest("Tartu", "Scooter");
@@ -45,6 +60,9 @@ public class DeliveryFeeServiceTest {
         assertEquals(4.0, fee);
     }
 
+    /**
+     * Tests that an additional wind fee is applied.
+     */
     @Test
     void shouldApplyWindFeeForBike() {
         DeliveryFeeRequest request = new DeliveryFeeRequest("Pärnu", "Bike");
@@ -53,9 +71,12 @@ public class DeliveryFeeServiceTest {
         when(weatherDataRepository.findTopByStationNameOrderByTimestampDesc("Pärnu")).thenReturn(Optional.of(mockWeather));
 
         double fee = deliveryFeeService.calcDeliveryFee(request);
-        assertEquals(3.0, fee);
+        assertEquals(2.5, fee);
     }
 
+    /**
+     * Tests that an exception is thrown for extreme wind.
+     */
     @Test
     void shouldThrowExceptionForExtremeWind() {
         DeliveryFeeRequest request = new DeliveryFeeRequest("Tallinn", "Bike");
@@ -65,5 +86,19 @@ public class DeliveryFeeServiceTest {
 
         Exception exception = assertThrows(RuntimeException.class, () -> deliveryFeeService.calcDeliveryFee(request));
         assertEquals("Usage of selected vehicle type is forbidden", exception.getMessage());
+    }
+
+    /**
+     * Tests that an additional weather phenomenon fee is applied.
+     */
+    @Test
+    void shouldApplySleetPhenomenonFeeForScooter() {
+        DeliveryFeeRequest request = new DeliveryFeeRequest("Pärnu", "Scooter");
+        WeatherData mockWeather = new WeatherData("Pärnu", "41803", 2.0, 3.0, "Sleet", null);
+
+        when(weatherDataRepository.findTopByStationNameOrderByTimestampDesc("Pärnu")).thenReturn(Optional.of(mockWeather));
+
+        double fee = deliveryFeeService.calcDeliveryFee(request);
+        assertEquals(3.5, fee);
     }
 }

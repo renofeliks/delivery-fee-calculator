@@ -3,6 +3,12 @@ package com.fuijtsu.project.delivery_fee_calculator.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+/**
+ * Data Transfer Object (DTO) used for requesting delivery fee calculation.
+ * I use DTO in this context, because it helps validate and structure input
+ * before data is processed by DeliveryFeeService.
+ * Validation constraints ensure the values are valid and not empty.
+ */
 public class DeliveryFeeRequest {
 
     @NotBlank(message = "City can't be empty")

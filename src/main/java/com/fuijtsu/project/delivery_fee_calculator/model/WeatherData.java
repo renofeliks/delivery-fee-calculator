@@ -5,6 +5,10 @@ import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
+/**
+ * Entity class representing weather data record.
+ * Maps the "weather_data" table in the database.
+ */
 @Entity
 @Table(name = "weather_data")
 public class WeatherData {
@@ -30,6 +34,7 @@ public class WeatherData {
     }
 
     // Getters & Setters
+
     public Long getId() {
         return id;
     }
@@ -86,6 +91,7 @@ public class WeatherData {
         this.timestamp = timestamp;
     }
 
+    // String representation of the WeatherData object.
     @Override
     public String toString() {
         return "WeatherData{" +
