@@ -42,7 +42,9 @@ Sample request body:
   "vehicleType": "Bike"
 }
 ```
-- Configure Cron Job (Default schedule is set to run hourly at HH:15:00)
+- Configure Cron Job
+
+Default schedule is set to run hourly at HH:15:00
 
 In WeatherDataFetcher class uncomment ```@Scheduled(cron = "0 * * * * ?")``` and comment ```@Scheduled(cron = "0 15 * * * ?")```
 
@@ -55,6 +57,10 @@ JDBC URL: ```jdbc:h2:mem:deliverydb```
 User: sa
 
 Password: (leave empty)
+
+Run: ```SELECT * FROM weather_data ORDER BY timestamp DESC;```
+
+Note: Read bullet point "Configure Cron Job" to to see data update every minute.
 
 - Run unit tests: ```mvn test```
 
